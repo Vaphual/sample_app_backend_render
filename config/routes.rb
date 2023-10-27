@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   namespace :api do
-    resources :users, only: [:index, :show]
+    resources :users, only: [:index, :show, :create]
+   
+    get '/home', to: 'users#index'
+    post '/login', to: 'sessions#create'
+    delete '/logout', to: 'sessions#destroy'
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
