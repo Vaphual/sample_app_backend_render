@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   namespace :api do
     resources :users, only: [:index, :show, :create]
+
+    resources :users_account, only: [:edit]
    
     get '/home', to: 'users#index'
     post '/login', to: 'sessions#create'

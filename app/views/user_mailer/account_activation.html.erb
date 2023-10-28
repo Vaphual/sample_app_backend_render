@@ -1,0 +1,9 @@
+<h1>User account_activation</h1> <br />
+<h1>Hi <%= @user.username %>,</h1>
+<p>
+  Someone requested a reset of your password if this was you click the link below the link will expire in 15 minutes.
+</p>
+
+<p>
+  Click here to activate your account <%= link_to "Activate", edit_users_account_activate_url(token: @token) %>
+</p>
