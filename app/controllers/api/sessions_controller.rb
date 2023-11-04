@@ -7,13 +7,19 @@ class Api::SessionsController < ApplicationController
     user = User.find_by(email: params[:session][:email].downcase)
     # debugger
     if user && user.authenticate(params[:session][:password])
-
-      # remember_me boolean check_box from frontend
-      params[:remember_me] ? remember(user) : forget(user)
-      # remember user
-      # User is logged in
-      session[:user_id] = user.id
-      render json: user, status: :ok
+      # prevent unactived user logged in
+      if user.activated?
+        forwarding_url = session[:forwarding_url]
+        reset_session
+        # remember_me boolean check_box from frontend
+        params[:remember_me] ? remember(user) : forget(user)
+        # remember user
+        # User is logged in
+        session[:user_id] = user.id
+        render json: user, status: :ok
+      else
+        render json: { error: "Account is not activated. Check your email for the activation link"}, status: :unprocessable_entity
+      end
     else
       render json: { error: "User not Found!" }, status: :unprocessable_entity
     end

@@ -16,7 +16,8 @@ class Api::UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save 
       # send active account email 
-      UserMailer.account_activation(@user).deliver_later 
+      # UserMailer.account_activation(@user).deliver_later 
+      @user.send_activation_mail
       render json: { message: "check your email to activate your account "}, status: :ok 
     else 
       render json: @user.errors, status: :unprocessable_entity
