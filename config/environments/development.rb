@@ -53,7 +53,9 @@ Rails.application.configure do
   # config.action_view.annotate_rendered_view_with_filenames = true
 
   # Raise error when a before_action's only/except options reference missing actions
+  # host = 'localhost:3000'
+  host = "api-sample.jubalthang.com/"
   config.action_controller.raise_on_missing_callback_actions = true
-  config.action_controller.raise_on_missing_callback_actions = true
-  config.action_mailer.default_url_options = { host: "localhost:5173", protocol: 'http' } # in my case I use Vite 
+  # config.action_controller.raise_on_missing_callback_actions = true
+  config.action_mailer.default_url_options = { host: host, protocol: 'https' } # in my case I use Vite 
 end

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :show, :create]
 
     resources :users_account, only: [:edit]
+    resources :account_activation, only: [:edit]
    
     get '/home', to: 'users#index'
     post '/login', to: 'sessions#create'

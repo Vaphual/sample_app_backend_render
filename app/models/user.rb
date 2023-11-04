@@ -2,6 +2,7 @@ class User < ApplicationRecord
   attr_accessor :remember_token
 
   before_save :downcase_email
+  before_create :create_activation_digest
 
   validates :username,
             presence: true, length: { maximum: 50 }
@@ -32,8 +33,10 @@ class User < ApplicationRecord
   end
 
   # return true if the given token matches the digest
-  def authenticated?(remember_token)
-    BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  def authenticated?(attribute, token)
+    digest = send("#{attribute}_digest") # Metaprogramming method this wil return the value of attribute
+    return ture if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
   end
 
   # Forgets a user
@@ -45,5 +48,9 @@ class User < ApplicationRecord
 
   def downcase_email
     self.email = email.downcase
+  end
+
+  def create_activation_digest
+    # generate activation token 
   end
 end

@@ -5,5 +5,5 @@
 </p>
 
 <p>
-  Click here to activate your account <%= link_to "Activate", edit_users_account_activate_url(token: @token) %>
+  Click here to activate your account <%= link_to "Activate", edit_users_account_activate_url(token: @token, email: @user.email) %>
 </p>
